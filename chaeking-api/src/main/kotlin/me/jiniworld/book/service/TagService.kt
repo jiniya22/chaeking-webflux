@@ -8,7 +8,7 @@ import org.springframework.transaction.annotation.Transactional
 @Transactional(readOnly = true)
 @Service
 class TagService(
-    private val tagRepository: TagRepository
+    private val tagRepository: TagRepository,
 ) {
 
     fun tags() =
