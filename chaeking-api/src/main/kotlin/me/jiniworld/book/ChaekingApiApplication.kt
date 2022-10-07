@@ -5,9 +5,9 @@ import org.springframework.boot.runApplication
 import java.util.*
 
 @SpringBootApplication
-class ChaekingKotlinApplication
+class ChaekingApiApplication
 
 fun main(args: Array<String>) {
     Locale.setDefault(Locale.KOREA)
-    runApplication<ChaekingKotlinApplication>(*args)
+    runApplication<ChaekingApiApplication>(*args)
 }

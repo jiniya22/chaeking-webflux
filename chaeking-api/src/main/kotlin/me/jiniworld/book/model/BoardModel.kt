@@ -29,5 +29,18 @@ data class BoardDetail(
     val id: Long,
     val title: String,
     val content: String,
-    val createdAt: String,
-)
+    val createdAt: String?,
+) {
+    companion object {
+        operator fun invoke(board: BaseBoard) =
+            with(board) {
+                BoardDetail(
+                    id = id!!,
+                    title = title,
+                    content = content,
+                    createdAt = createdAt?.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"))
+
+                )
+            }
+    }
+}
