@@ -11,7 +11,7 @@ class TagController(
     private val tagService: TagService,
 ) {
 
-    @GetMapping
+    @GetMapping("")
     fun tags() =
         tagService.tags()
 }

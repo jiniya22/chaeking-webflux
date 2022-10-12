@@ -1,16 +1,17 @@
 package me.jiniworld.book.domain.entity
 
-import javax.persistence.*
+import org.springframework.data.annotation.Id
+import org.springframework.data.relational.core.mapping.Column
 
-@MappedSuperclass
-abstract class BaseBoard: BaseEntity(){
+abstract class BaseBoard(
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    val id: Long? = null
+    open val id: Long? = null,
 
-    @Column(length = 100)
-    lateinit var title: String
+    @Column
+    open var title: String,
 
-    @Lob
-    lateinit var content: String
-}
+    //    @Lob
+    @Column
+    open var content: String,
+
+    ): BaseEntity()
