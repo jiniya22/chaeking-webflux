@@ -22,6 +22,16 @@ spring:
     format:
       date: yyyy-MM-dd
       date-time: yyyy-MM-dd HH:mm:ss
+  jackson:
+    serialization:
+      indent-output: true
+      write-enums-using-to-string: true
+    deserialization:
+      fail-on-unknown-properties: false
+      read-enums-using-to-string: true
+    mapper:
+      sort-properties-alphabetically: true
+
 
 logging:
   exception-conversion-word: '%wEx'
