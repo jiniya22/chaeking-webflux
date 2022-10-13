@@ -14,5 +14,7 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-data-r2dbc")
     runtimeOnly("org.mariadb:r2dbc-mariadb:1.1.2")
 
+    implementation("io.springfox:springfox-boot-starter:3.0.0")
+
     implementation("io.netty:netty-resolver-dns-native-macos:4.1.82.Final:osx-aarch_64")
 }
