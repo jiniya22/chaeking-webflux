@@ -1,4 +1,4 @@
-package me.jiniworld.book.web
+package me.jiniworld.book.web.setting.system
 
 import me.jiniworld.book.service.FaqService
 import org.springframework.data.domain.PageRequest
