@@ -2,9 +2,8 @@ package me.jiniworld.book.domain.repository
 
 import me.jiniworld.book.domain.entity.Meta
 import me.jiniworld.book.domain.entity.MetaType
-import org.springframework.data.repository.reactive.ReactiveCrudRepository
-import reactor.core.publisher.Mono
+import org.springframework.data.repository.kotlin.CoroutineCrudRepository
 
-interface MetaRepository : ReactiveCrudRepository<Meta, Long> {
-    fun findByType(type: MetaType): Mono<Meta>
+interface MetaRepository : CoroutineCrudRepository<Meta, Long> {
+    suspend fun findByType(type: MetaType): Meta?
 }

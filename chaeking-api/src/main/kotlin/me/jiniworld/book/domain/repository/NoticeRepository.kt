@@ -1,10 +1,10 @@
 package me.jiniworld.book.domain.repository
 
+import kotlinx.coroutines.flow.Flow
 import me.jiniworld.book.domain.entity.Notice
 import org.springframework.data.domain.Pageable
-import org.springframework.data.repository.reactive.ReactiveCrudRepository
-import reactor.core.publisher.Flux
+import org.springframework.data.repository.kotlin.CoroutineCrudRepository
 
-interface NoticeRepository : ReactiveCrudRepository<Notice, Long> {
-    fun findAllBy(pageable: Pageable): Flux<Notice>
+interface NoticeRepository : CoroutineCrudRepository<Notice, Long> {
+    fun findAllBy(pageable: Pageable): Flow<Notice>
 }

@@ -14,9 +14,8 @@ class MetaService(
     private val metaRepository: MetaRepository,
 ) {
 
-    fun meta(type: MetaType): Mono<String> {
-        return metaRepository.findByType(type).map{ it.content }
-    }
+    suspend fun meta(type: MetaType): String? =
+        metaRepository.findByType(type)?.content
 
 }
 

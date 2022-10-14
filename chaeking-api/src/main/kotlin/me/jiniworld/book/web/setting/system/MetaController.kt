@@ -18,7 +18,7 @@ class MetaController(
 
     @ApiOperation(value = "메타 정보(앱 버전) 조회")
     @GetMapping("")
-    fun meta(
+    suspend fun meta(
         @RequestParam(value = "메타 타입", required = false, defaultValue = "AOS_APP_VERSION") type: MetaType
     ) = metaService.meta(type)
 }

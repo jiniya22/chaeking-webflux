@@ -15,7 +15,7 @@ class NoticeService(
 //            .content
 //            .map { BoardSimple(it) }
 
-    fun notice(id: Long) =
+    suspend fun notice(id: Long) =
         noticeRepository.findById(id)
 
 }

@@ -1,6 +1,6 @@
 package me.jiniworld.book.domain.repository
 
 import me.jiniworld.book.domain.entity.Tag
-import org.springframework.data.repository.reactive.ReactiveCrudRepository
+import org.springframework.data.repository.kotlin.CoroutineCrudRepository
 
-interface TagRepository : ReactiveCrudRepository<Tag, Long>
+interface TagRepository : CoroutineCrudRepository<Tag, Long>

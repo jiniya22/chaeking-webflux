@@ -23,7 +23,7 @@ class FaqController(
 
     @ApiOperation(value = "FAQ(자주묻는 질문) 상세조회")
     @GetMapping("/{faq_id}")
-    fun faq(
+    suspend fun faq(
         @PathVariable("faq_id") faqId: Long
     ) = faqService.faq(faqId)
 }

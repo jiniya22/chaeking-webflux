@@ -23,7 +23,7 @@ class NoticeController(
 
     @ApiOperation(value = "공지사항 상세조회")
     @GetMapping("/{notice_id}")
-    fun notice(
+    suspend fun notice(
         @PathVariable("notice_id") noticeId: Long
     ) = noticeService.notice(noticeId)
 

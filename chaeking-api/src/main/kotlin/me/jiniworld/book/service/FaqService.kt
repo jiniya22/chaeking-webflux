@@ -15,7 +15,7 @@ class FaqService(
 //            .content
 //            .map { BoardSimple(it) }
 
-    fun faq(faqId: Long) =
+    suspend fun faq(faqId: Long) =
         faqRepository.findById(faqId)
 
 //    fun faq(faqId: Long): BoardDetail {
