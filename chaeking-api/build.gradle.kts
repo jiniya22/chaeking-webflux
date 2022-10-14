@@ -18,3 +18,7 @@ dependencies {
 
     implementation("io.netty:netty-resolver-dns-native-macos:4.1.82.Final:osx-aarch_64")
 }
+
+tasks.jar {
+    archiveFileName.set("chaeking-api.jar")
+}

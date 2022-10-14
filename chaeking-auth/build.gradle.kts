@@ -11,3 +11,7 @@ dependencies {
 
 //    implementation("at.favre.lib:bcrypt:0.9.0")
 }
+
+tasks.jar {
+    archiveFileName.set("chaeking-auth.jar")
+}
