@@ -2,7 +2,7 @@
 
 Chaeking API with Kotlin
 
-<a href="https://book.jiniworld.me" target="_blank">Go To Site - Chaeking API</a>
+<a href="https://book.applebox.xyz" target="_blank">Go To Site - Chaeking API</a>
 
 <p>
     <img src="https://img.shields.io/static/v1?label=OpenJDK&message=17.0.2&color=007396&logo=openjdk" alt="OpenJDK">
