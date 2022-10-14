@@ -16,6 +16,6 @@ class TagController(
 
     @ApiOperation(value = "태그 목록 조회")
     @GetMapping("")
-    fun tags() =
+    suspend fun tags() =
         tagService.tags()
 }

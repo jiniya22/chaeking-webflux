@@ -16,7 +16,7 @@ class FaqController(
 
     @ApiOperation(value = "FAQ(자주묻는 질문) 목록 조회")
     @GetMapping("")
-    fun faqs(
+    suspend fun faqs(
         @RequestParam(required = false, defaultValue = "0") page: Int,
         @RequestParam(required = false, defaultValue = "10") size: Int,
     ) = faqService.faqs(PageRequest.of(page, size, Sort.by(Sort.Order.desc("id"))))

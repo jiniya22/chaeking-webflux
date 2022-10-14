@@ -7,6 +7,6 @@ open class BaseResponse(
 
 class DataResponse<T>(
     override val result: String = "success",
-    override val reason: String,
+    override val reason: String = "",
     val data: T,
 ): BaseResponse(result, reason)
