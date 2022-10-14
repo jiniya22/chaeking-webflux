@@ -5,8 +5,6 @@ import org.springframework.data.annotation.LastModifiedDate
 import java.time.LocalDateTime
 
 abstract class BaseEntity(
-    var active: Boolean = false,
-
     @CreatedDate
     var createdAt: LocalDateTime? = null,
 

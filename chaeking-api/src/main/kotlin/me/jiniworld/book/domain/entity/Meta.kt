@@ -5,7 +5,6 @@ import org.springframework.data.relational.core.mapping.Column
 import org.springframework.data.relational.core.mapping.Table
 
 @Table("meta")
-//@Where(clause = "active = 1")
 class Meta(
 
     @Id

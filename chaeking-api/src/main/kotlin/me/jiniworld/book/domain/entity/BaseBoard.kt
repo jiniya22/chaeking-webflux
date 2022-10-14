@@ -5,13 +5,12 @@ import org.springframework.data.relational.core.mapping.Column
 
 abstract class BaseBoard(
     @Id
-    open val id: Long? = null,
+    val id: Long? = null,
 
     @Column
-    open var title: String,
+    var title: String,
 
-    //    @Lob
     @Column
-    open var content: String,
+    var content: String,
 
-    ): BaseEntity()
+): BaseEntity()
