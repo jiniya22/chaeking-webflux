@@ -1,6 +1,6 @@
 package me.jiniworld.book.config.exception
 
-import me.jiniworld.book.model.response.BaseResponse
+import me.jiniworld.book.model.BaseResponse
 import mu.KotlinLogging
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.ExceptionHandler

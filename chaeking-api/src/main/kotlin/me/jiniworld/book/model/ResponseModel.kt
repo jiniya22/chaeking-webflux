@@ -1,4 +1,4 @@
-package me.jiniworld.book.model.response
+package me.jiniworld.book.model
 
 open class BaseResponse(
     open val result: String = "fail",

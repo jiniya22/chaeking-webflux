@@ -4,7 +4,7 @@ import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.toList
 import me.jiniworld.book.domain.repository.TagRepository
 import me.jiniworld.book.model.BasicModel
-import me.jiniworld.book.model.response.DataResponse
+import me.jiniworld.book.model.DataResponse
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 

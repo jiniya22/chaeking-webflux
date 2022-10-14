@@ -6,7 +6,7 @@ import me.jiniworld.book.config.exception.NotFoundException
 import me.jiniworld.book.domain.repository.FaqRepository
 import me.jiniworld.book.model.BoardDetail
 import me.jiniworld.book.model.BoardSimple
-import me.jiniworld.book.model.response.DataResponse
+import me.jiniworld.book.model.DataResponse
 import org.springframework.data.domain.Pageable
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
