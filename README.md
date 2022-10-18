@@ -10,6 +10,7 @@ Chaeking API with Kotlin
     <img src="https://img.shields.io/static/v1?label=Spring%20Boot&message=2.7.3&color=6DB33F&logo=springboot&logoColor=fff" alt="Spring Boot">
     <img src="https://img.shields.io/static/v1?label=Gradle&message=7.5.1&color=02303A&logo=Gradle&logoColor=fff" alt="Gradle">
     <img src="https://img.shields.io/static/v1?label=MariaDB&message=10.8.3&color=003545&logo=MariaDB" alt="MariaDB">
+<img src="https://img.shields.io/static/v1?label=Swagger&message=3.0.3&color=85EA2D&logo=swagger&logoColor=fff">
 </p>
 
 ***
@@ -26,4 +27,6 @@ Chaeking API with Kotlin
 - Spring Data R2DBC
 - MariaDB 10.8.3
 - OpenAPI Specification
-    - Swagger v3 (springfox 3.0.0)
+    - Swagger v3
+      - springdoc-openapi webflux-ui 1.6.12
+      - springdoc-openapi kotlin 1.6.12
