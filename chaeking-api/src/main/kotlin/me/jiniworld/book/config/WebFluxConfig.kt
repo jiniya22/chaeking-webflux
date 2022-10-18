@@ -4,7 +4,6 @@ import org.springframework.context.annotation.Configuration
 import org.springframework.core.MethodParameter
 import org.springframework.stereotype.Component
 import org.springframework.web.reactive.BindingContext
-import org.springframework.web.reactive.config.EnableWebFlux
 import org.springframework.web.reactive.config.WebFluxConfigurer
 import org.springframework.web.reactive.result.method.HandlerMethodArgumentResolver
 import org.springframework.web.reactive.result.method.annotation.ArgumentResolverConfigurer
@@ -13,7 +12,6 @@ import reactor.core.publisher.Mono
 import reactor.kotlin.core.publisher.toMono
 
 @Configuration
-@EnableWebFlux
 class WebFluxConfig(
     private val authUserHandlerArgumentResolver: AuthUserHandlerArgumentResolver,
 ): WebFluxConfigurer {
