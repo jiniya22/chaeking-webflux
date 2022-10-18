@@ -9,10 +9,10 @@ import java.net.URI
 @RestController
 class IndexController {
 
-    @GetMapping("")
-    fun index(): ResponseEntity<Unit> =
-        ResponseEntity.status(HttpStatus.PERMANENT_REDIRECT)
-            .location(URI.create("/swagger-ui/")).build()
+//    @GetMapping("")
+//    fun index(): ResponseEntity<Unit> =
+//        ResponseEntity.status(HttpStatus.TEMPORARY_REDIRECT)
+//            .location(URI.create("/swagger-ui.html")).build()
 
     @GetMapping("/health-check")
     fun healthCheck() = "success"

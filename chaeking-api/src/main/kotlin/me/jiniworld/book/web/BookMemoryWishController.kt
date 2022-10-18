@@ -1,8 +1,8 @@
 package me.jiniworld.book.web
 
-import io.swagger.annotations.Api
-import io.swagger.annotations.ApiOperation
+import io.swagger.v3.oas.annotations.Operation
 import io.swagger.v3.oas.annotations.Parameter
+import io.swagger.v3.oas.annotations.tags.Tag
 import me.jiniworld.book.config.AuthUser
 import me.jiniworld.book.service.BookMemoryWishService
 import org.springframework.data.domain.PageRequest
@@ -12,13 +12,13 @@ import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RequestParam
 import org.springframework.web.bind.annotation.RestController
 
-@Api(tags = ["book-memory-wish"], description = "북 메모리(읽고 싶은책)")
+@Tag(name = "book-memory-wish", description = "북 메모리(읽고 싶은책)")
 @RestController
 @RequestMapping("/v1/book-memories/wish")
 class BookMemoryWishController(
     private val bookMemoryWishService: BookMemoryWishService,
 ) {
-    @ApiOperation(value = "읽고 싶은 책 목록")
+    @Operation(summary = "읽고 싶은 책 목록")
     @GetMapping("")
     suspend fun selectAll(
         authUser: AuthUser,

@@ -40,3 +40,22 @@ logging:
   level:
     web: DEBUG
     org.springframework.r2dbc: DEBUG
+
+server:
+  port: 8080
+
+springdoc:
+  api-docs:
+    path: /api-docs
+  default-consumes-media-type: application/json
+  default-produces-media-type: application/json
+  swagger-ui:
+    operations-sorter: alpha
+    tags-sorter: alpha
+    disable-swagger-default-url: true
+    doc-expansion: none
+    syntax-highlight:
+      theme: nord
+    path: /
+  paths-to-match:
+    - /v1/**
