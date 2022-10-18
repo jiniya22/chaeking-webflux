@@ -12,11 +12,13 @@ class Book(
     @Column
     val name: String,
 
+    var price: Int,
+
     @Column
     val isbn10: String,
 
     @Column
-    var imgUrl: String?,
+    var imageUrl: String?,
 
     @Column
     var detailInfo: String?,

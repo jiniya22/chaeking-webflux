@@ -1,6 +1,7 @@
 package me.jiniworld.book.service
 
 import kotlinx.coroutines.flow.toList
+import me.jiniworld.book.domain.entity.BookMemoryWish
 import me.jiniworld.book.domain.repository.BookMemoryWishRepository
 import me.jiniworld.book.model.BookMemoryWishSimple
 import me.jiniworld.book.model.DataResponse
@@ -12,7 +13,7 @@ import java.time.LocalDate
 import java.time.LocalDateTime
 
 @Service
-class BookMememoryWishService(
+class BookMemoryWishService(
     private val bookMemoryWishRepository: BookMemoryWishRepository,
 ) {
     suspend fun selectAll(userId: Long, month: String?, pageable: Pageable): DataResponse<List<BookMemoryWishSimple>> {
@@ -28,4 +29,7 @@ class BookMememoryWishService(
             .toList()
             .let { DataResponse(data = it) }
     }
+
+    suspend fun findByBookIdAndUserId(bookId: Long, userId: Long): BookMemoryWish? =
+        bookMemoryWishRepository.findByBookIdAndUserId(bookId, userId)
 }
