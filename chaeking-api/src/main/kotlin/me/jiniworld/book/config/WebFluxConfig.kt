@@ -1,5 +1,6 @@
 package me.jiniworld.book.config
 
+import io.swagger.annotations.ApiModelProperty
 import org.springframework.context.annotation.Configuration
 import org.springframework.core.MethodParameter
 import org.springframework.stereotype.Component
@@ -49,7 +50,7 @@ class AuthUserHandlerArgumentResolver : HandlerMethodArgumentResolver {
 }
 
 data class AuthUser(
-    val userId: Long,
-    val username: String,
-    val profileUrl: String? = null,
+    @ApiModelProperty(hidden = true) val userId: Long,
+    @ApiModelProperty(hidden = true) val username: String,
+//    @ApiModelProperty(hidden = true) val profileUrl: String? = null,
 )
