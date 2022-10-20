@@ -7,7 +7,9 @@ import io.swagger.v3.oas.annotations.tags.Tag
 import me.jiniworld.book.config.AuthUser
 import me.jiniworld.book.model.BaseResponse
 import me.jiniworld.book.model.BookMemoryWishCreation
+import me.jiniworld.book.model.BookMemoryWishModification
 import me.jiniworld.book.service.BookMemoryWishService
+import me.jiniworld.book.util.DescriptionUtils
 import org.springframework.data.domain.PageRequest
 import org.springframework.data.domain.Sort
 import org.springframework.web.bind.annotation.*
@@ -38,7 +40,18 @@ class BookMemoryWishController(
         req: BookMemoryWishCreation,
     ): BaseResponse {
         bookMemoryWishService.insert(authUser.userId, req)
-        return BaseResponse()
+        return BaseResponse.SUCCESS
     }
 
+    @Operation(summary = "읽고 싶은 책 수정")
+    @PutMapping("/{book_memory_wish_id}")
+    suspend fun update(
+        authUser: AuthUser,
+        @Parameter(description = DescriptionUtils.ID_BOOK_MEMORY_WISH)
+        @PathVariable(name = "book_memory_wish_id") bookMemoryWishId: Long,
+        req: BookMemoryWishModification,
+    ): BaseResponse {
+        bookMemoryWishService.modify(authUser.userId, bookMemoryWishId, req)
+        return BaseResponse.SUCCESS
+    }
 }

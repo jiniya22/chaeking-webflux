@@ -6,6 +6,7 @@ import me.jiniworld.book.domain.entity.BookMemoryWish
 import me.jiniworld.book.domain.repository.BookMemoryWishRepository
 import me.jiniworld.book.domain.repository.BookRepository
 import me.jiniworld.book.model.BookMemoryWishCreation
+import me.jiniworld.book.model.BookMemoryWishModification
 import me.jiniworld.book.model.BookMemoryWishSimple
 import me.jiniworld.book.model.DataResponse
 import me.jiniworld.book.util.DateTimeUtils
@@ -47,6 +48,14 @@ class BookMemoryWishService(
 
         val bookMemoryWish = bookMemoryWishRepository.findByBookIdAndUserId(req.bookId, userId)
             ?: BookMemoryWish(bookId = req.bookId, userId = userId, memo = req.memo)
+        bookMemoryWish.memo = req.memo
+        bookMemoryWishRepository.save(bookMemoryWish)
+    }
+
+    @Transactional
+    suspend fun modify(userId: Long, bookMemoryWishId: Long, req: BookMemoryWishModification) {
+        val bookMemoryWish = bookMemoryWishRepository.findByIdAndUserId(bookMemoryWishId, userId)
+            ?: throw NotFoundException(DescriptionUtils.INVALID_BOOK_MEMORY_WISH)
         bookMemoryWish.memo = req.memo
         bookMemoryWishRepository.save(bookMemoryWish)
     }
