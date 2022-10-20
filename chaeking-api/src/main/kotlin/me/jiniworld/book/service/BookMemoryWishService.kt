@@ -1,6 +1,7 @@
 package me.jiniworld.book.service
 
 import kotlinx.coroutines.flow.toList
+import kotlinx.coroutines.reactor.awaitSingleOrNull
 import me.jiniworld.book.config.exception.NotFoundException
 import me.jiniworld.book.domain.entity.BookMemoryWish
 import me.jiniworld.book.domain.repository.BookMemoryWishRepository
@@ -52,11 +53,21 @@ class BookMemoryWishService(
         bookMemoryWishRepository.save(bookMemoryWish)
     }
 
+    suspend fun selectOne(userId: Long, bookMemoryWishId: Long) =
+        bookMemoryWishRepository.findBookMemoryWishDetailByIdAndUserId(bookMemoryWishId, userId).awaitSingleOrNull()
+            ?.let { DataResponse(data = it) }
+            ?: throw NotFoundException(DescriptionUtils.INVALID_BOOK_MEMORY_WISH)
+
     @Transactional
     suspend fun modify(userId: Long, bookMemoryWishId: Long, req: BookMemoryWishModification) {
         val bookMemoryWish = bookMemoryWishRepository.findByIdAndUserId(bookMemoryWishId, userId)
             ?: throw NotFoundException(DescriptionUtils.INVALID_BOOK_MEMORY_WISH)
         bookMemoryWish.memo = req.memo
         bookMemoryWishRepository.save(bookMemoryWish)
+    }
+
+    @Transactional
+    suspend fun delete(userId: Long, bookMemoryWishId: Long) {
+        bookMemoryWishRepository.deleteByIdAndUserId(bookMemoryWishId, userId)
     }
 }

@@ -18,6 +18,14 @@ data class BookMemoryWishSimple(
     val imageUrl: String,
 )
 
+data class BookMemoryWishDetail(
+    val id: Long,
+    val bookId: Long,
+    val bookName: String,
+    val imageUrl: String,
+    val memo: String,
+)
+
 data class BookMemoryWishContent(
     val id: Long,
     val memo: String,

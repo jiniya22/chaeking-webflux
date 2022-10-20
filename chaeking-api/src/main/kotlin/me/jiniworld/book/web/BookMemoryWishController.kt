@@ -43,9 +43,17 @@ class BookMemoryWishController(
         return BaseResponse.SUCCESS
     }
 
+    @Operation(summary = "읽고 싶은 책 상세조회")
+    @GetMapping("/{book_memory_wish_id}")
+    suspend fun selectOne(
+        authUser: AuthUser,
+        @Parameter(description = DescriptionUtils.ID_BOOK_MEMORY_WISH)
+        @PathVariable(name = "book_memory_wish_id") bookMemoryWishId: Long,
+    ) = bookMemoryWishService.selectOne(authUser.userId, bookMemoryWishId)
+
     @Operation(summary = "읽고 싶은 책 수정")
     @PutMapping("/{book_memory_wish_id}")
-    suspend fun update(
+    suspend fun modify(
         authUser: AuthUser,
         @Parameter(description = DescriptionUtils.ID_BOOK_MEMORY_WISH)
         @PathVariable(name = "book_memory_wish_id") bookMemoryWishId: Long,
@@ -54,4 +62,16 @@ class BookMemoryWishController(
         bookMemoryWishService.modify(authUser.userId, bookMemoryWishId, req)
         return BaseResponse.SUCCESS
     }
+
+    @Operation(summary = "읽고 싶은 책 삭제")
+    @DeleteMapping("/{book_memory_wish_id}")
+    suspend fun delete(
+        authUser: AuthUser,
+        @Parameter(description = DescriptionUtils.ID_BOOK_MEMORY_WISH)
+        @PathVariable(name = "book_memory_wish_id") bookMemoryWishId: Long,
+    ): BaseResponse {
+        bookMemoryWishService.delete(authUser.userId, bookMemoryWishId)
+        return BaseResponse.SUCCESS
+    }
+
 }
