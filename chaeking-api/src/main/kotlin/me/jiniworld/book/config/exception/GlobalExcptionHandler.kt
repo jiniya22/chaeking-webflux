@@ -14,14 +14,14 @@ class GlobalExcptionHandler {
     fun handleServerException(ex: ServerException): ResponseEntity<BaseResponse> {
         logging.error { ex.message }
         return ResponseEntity.status(ex.code)
-            .body(BaseResponse(reason = ex.message))
+            .body(BaseResponse(result = "fail", reason = ex.message))
     }
 
     @ExceptionHandler(Exception::class)
     fun handleException(ex: Exception): ResponseEntity<BaseResponse> {
         logging.error { ex.message }
         return ResponseEntity.internalServerError()
-            .body(BaseResponse(reason = "Internal Server Error"))
+            .body(BaseResponse(result = "fail", reason = "Internal Server Error"))
     }
 
 }

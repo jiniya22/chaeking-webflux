@@ -38,7 +38,7 @@ class BookMemoryWishController(
         req: BookMemoryWishCreation,
     ): BaseResponse {
         bookMemoryWishService.insert(authUser.userId, req)
-        return BaseResponse(result = "success")
+        return BaseResponse()
     }
 
 }

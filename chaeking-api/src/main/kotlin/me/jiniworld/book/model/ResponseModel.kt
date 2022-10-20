@@ -1,7 +1,7 @@
 package me.jiniworld.book.model
 
 open class BaseResponse(
-    open val result: String = "fail",
+    open val result: String = "success",
     open val reason: String = "",
 )
 
