@@ -39,7 +39,6 @@ data class BoardDetail(
                     title = title,
                     content = content,
                     createdAt = createdAt?.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"))
-
                 )
             }
     }
