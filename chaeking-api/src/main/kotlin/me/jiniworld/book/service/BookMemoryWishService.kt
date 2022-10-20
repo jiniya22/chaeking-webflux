@@ -47,10 +47,12 @@ class BookMemoryWishService(
         if (!bookRepository.existsById(req.bookId))
             throw NotFoundException(DescriptionUtils.INVALID_BOOK_ID)
 
-        val bookMemoryWish = bookMemoryWishRepository.findByBookIdAndUserId(req.bookId, userId)
+        bookMemoryWishRepository.findByBookIdAndUserId(req.bookId, userId)
             ?: BookMemoryWish(bookId = req.bookId, userId = userId, memo = req.memo)
-        bookMemoryWish.memo = req.memo
-        bookMemoryWishRepository.save(bookMemoryWish)
+                .apply {
+                    memo = req.memo
+                    bookMemoryWishRepository.save(this)
+                }
     }
 
     suspend fun selectOne(userId: Long, bookMemoryWishId: Long) =
@@ -60,10 +62,12 @@ class BookMemoryWishService(
 
     @Transactional
     suspend fun modify(userId: Long, bookMemoryWishId: Long, req: BookMemoryWishModification) {
-        val bookMemoryWish = bookMemoryWishRepository.findByIdAndUserId(bookMemoryWishId, userId)
+        bookMemoryWishRepository.findByIdAndUserId(bookMemoryWishId, userId)
+            ?.apply {
+                memo = req.memo
+                bookMemoryWishRepository.save(this)
+            }
             ?: throw NotFoundException(DescriptionUtils.INVALID_BOOK_MEMORY_WISH)
-        bookMemoryWish.memo = req.memo
-        bookMemoryWishRepository.save(bookMemoryWish)
     }
 
     @Transactional
