@@ -11,5 +11,6 @@ object DescriptionUtils {
 
     const val INVALID_BOOK_ID = "조회되는 book 정보가 없습니다(book_id Error)"
     const val INVALID_BOOK_MEMORY_WISH = "조회되는 book_memory_wish 정보가 없습니다"
+    const val INVALID_BOOK_MEMORY_COMPLETE = "조회되는 book_memory_complete 정보가 없습니다"
 
 }
