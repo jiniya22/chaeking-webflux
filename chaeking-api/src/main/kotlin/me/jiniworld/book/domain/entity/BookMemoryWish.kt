@@ -5,7 +5,7 @@ import org.springframework.data.relational.core.mapping.Table
 
 @Table("book_memory_wish")
 class BookMemoryWish(
-    @Id val id: Long?,
+    @Id val id: Long? = null,
 
     val bookId: Long,
 
@@ -13,4 +13,6 @@ class BookMemoryWish(
 
     var memo: String,
 
-    ): BaseEntity()
+): BaseEntity() {
+    fun withId(id: Long?): BookMemoryWish = BookMemoryWish(id, bookId, userId, memo)
+}

@@ -2,6 +2,15 @@ package me.jiniworld.book.model
 
 import me.jiniworld.book.domain.entity.BookMemoryWish
 
+data class BookMemoryWishCreation(
+    val bookId: Long,
+    val memo: String,
+)
+
+data class BookMemoryWishModification(
+    val memo: String,
+)
+
 data class BookMemoryWishSimple(
     val id: Long,
     val bookId: Long,
