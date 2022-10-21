@@ -56,7 +56,7 @@ class BookMemoryWishService(
     }
 
     suspend fun selectOne(userId: Long, bookMemoryWishId: Long) =
-        bookMemoryWishRepository.findBookMemoryWishDetailByIdAndUserId(bookMemoryWishId, userId).awaitSingleOrNull()
+        bookMemoryWishRepository.findBookMemoryWishDetailByIdAndUserId(bookMemoryWishId, userId)
             ?.let { DataResponse(data = it) }
             ?: throw NotFoundException(DescriptionUtils.INVALID_BOOK_MEMORY_WISH)
 

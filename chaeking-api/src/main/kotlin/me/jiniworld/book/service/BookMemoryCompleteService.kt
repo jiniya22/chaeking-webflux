@@ -54,7 +54,7 @@ class BookMemoryCompleteService(
     }
 
     suspend fun selectOne(userId: Long, bookMemoryCompleteId: Long) =
-        bookMemoryCompleteRepository.findBookMemoryCompleteDetailByIdAndUserId(bookMemoryCompleteId, userId).awaitSingleOrNull()
+        bookMemoryCompleteRepository.findBookMemoryCompleteDetailByIdAndUserId(bookMemoryCompleteId, userId)
             ?.let { DataResponse(data = it) }
             ?: throw NotFoundException(DescriptionUtils.INVALID_BOOK_MEMORY_COMPLETE)
 

@@ -4,7 +4,6 @@ import kotlinx.coroutines.flow.Flow
 import me.jiniworld.book.model.BookMemoryCompleteDetail
 import me.jiniworld.book.model.BookMemoryCompleteSimple
 import org.springframework.data.r2dbc.repository.Query
-import reactor.core.publisher.Mono
 import java.time.LocalDateTime
 
 interface BookMemoryCompleteQueryRepository {
@@ -25,5 +24,5 @@ interface BookMemoryCompleteQueryRepository {
             FROM book_memory_complete c INNER JOIN book b ON c.book_id = b.id
             WHERE c.id = :id AND c.user_id = :userId
             LIMIT 1""")
-    fun findBookMemoryCompleteDetailByIdAndUserId(id: Long, userId: Long): Mono<BookMemoryCompleteDetail>
+    suspend fun findBookMemoryCompleteDetailByIdAndUserId(id: Long, userId: Long): BookMemoryCompleteDetail?
 }
