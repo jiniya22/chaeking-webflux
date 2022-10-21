@@ -30,9 +30,9 @@ class SwaggerConfig(
 //            .addSecurityItem(SecurityRequirement().addList("access_token"))
             .info(
                 Info().title("Chaeking API - $profile")
-                .description("책킹 API(with Kotlin)")
+                .description("Kotlin + Spring Webflux + Spring Data R2DBC 를 이용한 책킹 API")
                 .contact(Contact().name("jini").url("https://blog.jiniworld.me/").email("jini@chaeking.com"))
-                .license(License().name("GNU General Public License v3.0").url("https://github.com/jiniya22/chaeking-kotlin/blob/master/LICENSE")))
+                .license(License().name("GNU General Public License v3.0").url("https://github.com/jiniya22/chaeking-webflux/blob/master/LICENSE")))
             .servers(
                 listOf(
                     Server().url(url).description(
