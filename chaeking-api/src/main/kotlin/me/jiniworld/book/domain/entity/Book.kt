@@ -22,13 +22,9 @@ class Book(
 
     val publicationDate: LocalDate?,
 
-    /*
-    val publisher: Publisher,
+    val publisherId: Long? = null,
 
-    val bookAndAuthors: List<BookAndAuthor>,
+    @Transient
+    val publisher: String? = null,
 
-    val bookMemoryCompletes: List<BookMemoryComplete>,
-
-    val bookMemoryWishes: List<BookMemoryWish>,
-     */
 ): BaseEntity()
