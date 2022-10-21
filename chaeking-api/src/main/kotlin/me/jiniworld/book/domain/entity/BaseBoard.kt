@@ -4,7 +4,7 @@ import org.springframework.data.annotation.Id
 
 abstract class BaseBoard(
     @Id
-    val id: Long? = null,
+    val id: Long = 0,
 
     var title: String,
 

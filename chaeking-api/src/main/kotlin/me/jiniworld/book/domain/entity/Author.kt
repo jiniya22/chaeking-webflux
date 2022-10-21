@@ -6,8 +6,8 @@ import org.springframework.data.relational.core.mapping.Table
 import java.time.LocalDateTime
 
 @Table("author")
-class Author(
-    @Id val id: Long?,
+data class Author(
+    @Id val id: Long = 0,
 
     val name: String,
 

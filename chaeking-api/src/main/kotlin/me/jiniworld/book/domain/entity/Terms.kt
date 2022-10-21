@@ -4,9 +4,9 @@ import org.springframework.data.annotation.Id
 import org.springframework.data.relational.core.mapping.Table
 
 @Table("book")
-class Terms(
+data class Terms(
     @Id
-    val id: Long? = null,
+    val id: Long = 0,
 
     val title: String,
 

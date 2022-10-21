@@ -4,10 +4,9 @@ import org.springframework.data.annotation.Id
 import org.springframework.data.relational.core.mapping.Table
 
 @Table("meta")
-class Meta(
-
+data class Meta(
     @Id
-    val id: Long? = null,
+    val id: Long = 0,
 
     val type: MetaType,
 

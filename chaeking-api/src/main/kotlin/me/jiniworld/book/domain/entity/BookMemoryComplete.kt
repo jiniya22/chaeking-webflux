@@ -15,6 +15,4 @@ data class BookMemoryComplete(
 
     var rate: Double,
 
-): BaseEntity() {
-//    fun withId(id: Long): BookMemoryComplete = BookMemoryComplete(id, bookId, userId, memo, rate)
-}
+): BaseEntity()

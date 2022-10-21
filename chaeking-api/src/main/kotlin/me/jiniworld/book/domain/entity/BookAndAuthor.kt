@@ -4,8 +4,8 @@ import org.springframework.data.annotation.Id
 import org.springframework.data.relational.core.mapping.Table
 
 @Table("book_and_author")
-class BookAndAuthor(
-    @Id val id: Long?,
+data class BookAndAuthor(
+    @Id val id: Long = 0,
 
     val bookId: Long,
 

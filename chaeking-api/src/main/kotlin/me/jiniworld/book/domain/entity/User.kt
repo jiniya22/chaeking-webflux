@@ -6,7 +6,7 @@ import org.springframework.data.relational.core.mapping.Table
 @Table("user")
 data class User(
     @Id
-    val id: Long? = null,
+    val id: Long = 0,
 
     var email: String,
 

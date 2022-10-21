@@ -5,9 +5,9 @@ import org.springframework.data.relational.core.mapping.Table
 import java.time.LocalDateTime
 
 @Table("terms_log")
-class TermsLog(
+data class TermsLog(
     @Id
-    val id: Long? = null,
+    val id: Long = 0,
 
     val url: String,
 
