@@ -3,7 +3,9 @@ package me.jiniworld.book.service
 import kotlinx.coroutines.flow.toList
 import me.jiniworld.book.config.exception.NotFoundException
 import me.jiniworld.book.domain.entity.BookMemoryComplete
+import me.jiniworld.book.domain.entity.BookMemoryCompleteTag
 import me.jiniworld.book.domain.repository.BookMemoryCompleteRepository
+import me.jiniworld.book.domain.repository.BookMemoryCompleteTagRepository
 import me.jiniworld.book.domain.repository.BookRepository
 import me.jiniworld.book.model.BookMemoryCompleteCreation
 import me.jiniworld.book.model.BookMemoryCompleteModification
@@ -23,6 +25,7 @@ import java.time.LocalDateTime
 class BookMemoryCompleteService(
     private val bookRepository: BookRepository,
     private val bookMemoryCompleteRepository: BookMemoryCompleteRepository,
+    private val bookMemoryCompleteTagRepository: BookMemoryCompleteTagRepository,
 ) {
     suspend fun selectAll(userId: Long, month: String?, pageable: Pageable): DataResponse<List<BookMemoryCompleteSimple>> {
         if (Strings.isBlank(month)) {
@@ -49,7 +52,11 @@ class BookMemoryCompleteService(
                     memo = req.memo
                     rate = req.rate
                     bookMemoryCompleteRepository.save(this)}
-        // TODO book_memory_complete_tag insert
+                .also {
+                    req.tagIds.forEach { tagId ->
+                        bookMemoryCompleteTagRepository.save(BookMemoryCompleteTag(bookMemoryCompleteId = it.id, tagId = tagId))
+                    }
+                }
     }
 
     suspend fun selectOne(userId: Long, bookMemoryCompleteId: Long) =
