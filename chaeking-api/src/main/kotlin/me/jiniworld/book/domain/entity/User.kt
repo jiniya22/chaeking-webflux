@@ -16,7 +16,7 @@ data class User(
 
     val sex: Sex = Sex.M,
 
-    var imageUrl: String,
+    var imageUrl: String?,
 
     var push: Boolean = false,
 
