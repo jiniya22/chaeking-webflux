@@ -3,6 +3,14 @@ package me.jiniworld.book.model
 import me.jiniworld.book.domain.entity.Book
 import me.jiniworld.book.domain.entity.BookMemoryWish
 
+data class BookSimple(
+    val id: Long,
+    val name: String,
+    var authorNames: String?,
+    var publisherName: String?,
+    val imageUrl: String?,
+)
+
 data class BookDetail(
     val id: Long,
     val name: String,
