@@ -1,7 +1,6 @@
 package me.jiniworld.book.service
 
 import kotlinx.coroutines.flow.toList
-import kotlinx.coroutines.reactor.awaitSingleOrNull
 import me.jiniworld.book.config.exception.NotFoundException
 import me.jiniworld.book.domain.entity.BookMemoryComplete
 import me.jiniworld.book.domain.repository.BookMemoryCompleteRepository
@@ -44,7 +43,7 @@ class BookMemoryCompleteService(
         if (!bookRepository.existsById(req.bookId))
             throw NotFoundException(DescriptionUtils.INVALID_BOOK_ID)
 
-        val bookMemoryComplete = bookMemoryCompleteRepository.findByBookIdAndUserId(req.bookId, userId)
+        bookMemoryCompleteRepository.findByBookIdAndUserId(req.bookId, userId)
             ?: BookMemoryComplete(bookId = req.bookId, userId = userId, memo = req.memo, rate = req.rate)
                 .run {
                     memo = req.memo

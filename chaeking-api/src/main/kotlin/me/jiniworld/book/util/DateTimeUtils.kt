@@ -8,6 +8,7 @@ import java.time.temporal.TemporalAdjusters
 
 object DateTimeUtils {
 
+    private const val SIMPLE_PATTERN_MONTH = "yyyyMM"
     private const val DEFAULT_PATTERN_DATE = "yyyy-MM-dd"
     private const val DEFAULT_PATTERN_DATETIME = "yyyy-MM-dd HH:mm:ss"
     private const val DEFAULT_PATTERN_TIME = "HH:mm:ss"
@@ -15,6 +16,7 @@ object DateTimeUtils {
     private val LOCALTIME_START = LocalTime.of(0, 0)
     private val LOCALTIME_END = LocalTime.of(23, 59, 59)
 
+    val FORMATTER_MONTH_SIMPLE: DateTimeFormatter = DateTimeFormatter.ofPattern(SIMPLE_PATTERN_MONTH)
     val FORMATTER_DATE: DateTimeFormatter = DateTimeFormatter.ofPattern(DEFAULT_PATTERN_DATE)
     val FORMATTER_DATETIME: DateTimeFormatter = DateTimeFormatter.ofPattern(DEFAULT_PATTERN_DATETIME)
     val FORMATTER_TIME: DateTimeFormatter = DateTimeFormatter.ofPattern(DEFAULT_PATTERN_TIME)

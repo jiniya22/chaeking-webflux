@@ -1,7 +1,6 @@
 package me.jiniworld.book.service
 
 import kotlinx.coroutines.flow.toList
-import kotlinx.coroutines.reactor.awaitSingleOrNull
 import me.jiniworld.book.config.exception.NotFoundException
 import me.jiniworld.book.domain.entity.BookMemoryWish
 import me.jiniworld.book.domain.repository.BookMemoryWishRepository
@@ -38,9 +37,6 @@ class BookMemoryWishService(
             .toList()
             .let { DataResponse(data = it) }
     }
-
-    suspend fun findByBookIdAndUserId(bookId: Long, userId: Long): BookMemoryWish? =
-        bookMemoryWishRepository.findByBookIdAndUserId(bookId, userId)
 
     @Transactional
     suspend fun insert(userId: Long, req: BookMemoryWishCreation) {
