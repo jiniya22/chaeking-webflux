@@ -27,4 +27,10 @@ class Book(
     @Transient
     val publisher: String? = null,
 
+    @Transient
+    var authors: List<String>?,
+
+    @Transient
+    var bookMemoryWish: BookMemoryWish? = null,
+
 ): BaseEntity()

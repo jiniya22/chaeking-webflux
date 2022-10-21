@@ -21,11 +21,11 @@ data class BookDetail(
     val isbn: String,
     var imageUrl: String?,
     var detailInfo: String?,
-//    var authors: List<String>,
+    var authors: List<String>?,
     val bookMemoryWish: BookMemoryWishContent?,
 ) {
     companion object {
-        operator fun invoke(book: Book, bookMemoryWish: BookMemoryWish?) =
+        operator fun invoke(book: Book) =
             with(book) {
                 BookDetail(
                     id = id!!,
@@ -36,6 +36,7 @@ data class BookDetail(
                     isbn = isbn10,
                     imageUrl = imageUrl,
                     detailInfo = detailInfo,
+                    authors = authors,
                     bookMemoryWish = bookMemoryWish?.let { BookMemoryWishContent(it) },
                 )
             }
