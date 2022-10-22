@@ -1,12 +1,12 @@
 package me.jiniworld.book.web.setting.system
 
 import io.swagger.v3.oas.annotations.Operation
+import io.swagger.v3.oas.annotations.Parameter
 import io.swagger.v3.oas.annotations.tags.Tag
 import me.jiniworld.book.config.AuthUser
 import me.jiniworld.book.model.BaseResponse
 import me.jiniworld.book.model.BoardCreation
 import me.jiniworld.book.service.ContactService
-import me.jiniworld.book.service.FaqService
 import org.springframework.data.domain.PageRequest
 import org.springframework.data.domain.Sort
 import org.springframework.web.bind.annotation.*
@@ -36,4 +36,10 @@ class ContactController(
         return BaseResponse.SUCCESS
     }
 
+    @Operation(summary = "문의 상세조회")
+    @GetMapping("/{contact_id}")
+    suspend fun selectOne(
+        authUser: AuthUser,
+        @Parameter(description = "문의 id") @PathVariable(name = "contact_id") contactId: Long,
+    ) = contactService.selectOne(authUser.userId, contactId)
 }

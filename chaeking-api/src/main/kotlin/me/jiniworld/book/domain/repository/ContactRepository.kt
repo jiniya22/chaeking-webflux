@@ -7,4 +7,5 @@ import org.springframework.data.repository.kotlin.CoroutineCrudRepository
 
 interface ContactRepository: CoroutineCrudRepository<Contact, Long> {
     fun findAllByUserId(userId: Long, pageable: Pageable): Flow<Contact>
+    suspend fun findByIdAndUserId(id: Long, userId: Long): Contact?
 }

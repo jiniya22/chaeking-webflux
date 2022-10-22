@@ -33,4 +33,9 @@ class ContactService(
         }
     }
 
+    suspend fun selectOne(userId: Long, contactId: Long) =
+        contactRepository.findByIdAndUserId(contactId, userId)
+            ?.let { DataResponse(data = it) }
+
+
 }
