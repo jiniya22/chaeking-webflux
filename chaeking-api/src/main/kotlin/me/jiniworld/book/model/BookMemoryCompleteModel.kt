@@ -1,17 +1,23 @@
 package me.jiniworld.book.model
 
+interface BookMemoryCompleteReq {
+    val memo: String
+    val rate: Double
+    val tagIds: List<Long>
+}
+
 data class BookMemoryCompleteCreation(
     val bookId: Long,
-    val memo: String,
-    val rate: Double,
-    val tagIds: List<Long>,
-)
+    override val memo: String,
+    override val rate: Double,
+    override val tagIds: List<Long>,
+): BookMemoryCompleteReq
 
 data class BookMemoryCompleteModification(
-    val memo: String,
-    val rate: Double,
-    val tagIds: List<Long>,
-)
+    override val memo: String,
+    override val rate: Double,
+    override val tagIds: List<Long>,
+): BookMemoryCompleteReq
 
 data class BookMemoryCompleteSimple(
     val id: Long,

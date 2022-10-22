@@ -6,6 +6,6 @@ import org.springframework.data.repository.kotlin.CoroutineCrudRepository
 
 interface BookMemoryCompleteTagRepository: CoroutineCrudRepository<BookMemoryCompleteTag, Long> {
     fun findAllByBookMemoryCompleteId(id: Long): Flow<BookMemoryCompleteTag>
-    fun deleteAllByBookMemoryCompleteId(id: Long)
-    fun deleteAllByBookMemoryCompleteIdAndTagIdIn(bookMemoryCompleteId: Long, tagIds: List<Long>)
+    suspend fun deleteAllByBookMemoryCompleteId(id: Long)
+    suspend fun deleteAllByBookMemoryCompleteIdAndTagIdIn(bookMemoryCompleteId: Long, tagIds: List<Long>)
 }

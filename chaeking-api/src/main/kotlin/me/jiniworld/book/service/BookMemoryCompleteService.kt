@@ -8,10 +8,7 @@ import me.jiniworld.book.domain.entity.BookMemoryCompleteTag
 import me.jiniworld.book.domain.repository.BookMemoryCompleteRepository
 import me.jiniworld.book.domain.repository.BookMemoryCompleteTagRepository
 import me.jiniworld.book.domain.repository.BookRepository
-import me.jiniworld.book.model.BookMemoryCompleteCreation
-import me.jiniworld.book.model.BookMemoryCompleteModification
-import me.jiniworld.book.model.BookMemoryCompleteSimple
-import me.jiniworld.book.model.DataResponse
+import me.jiniworld.book.model.*
 import me.jiniworld.book.util.DateTimeUtils
 import me.jiniworld.book.util.DescriptionUtils
 import org.apache.logging.log4j.util.Strings
@@ -46,29 +43,35 @@ class BookMemoryCompleteService(
     suspend fun insert(userId: Long, req: BookMemoryCompleteCreation) {
         if (!bookRepository.existsById(req.bookId))
             throw NotFoundException(DescriptionUtils.INVALID_BOOK_ID)
-
-        bookMemoryCompleteRepository.findByBookIdAndUserId(req.bookId, userId)
+        val bookMemoryComplete = bookMemoryCompleteRepository.findByBookIdAndUserId(req.bookId, userId)
             ?: BookMemoryComplete(bookId = req.bookId, userId = userId, memo = req.memo, rate = req.rate)
-                .run {
-                    memo = req.memo
-                    rate = req.rate
-                    bookMemoryCompleteRepository.save(this)}
-                .also {
-                    val bookMemoryCompleteId = it.id
-                    if(req.tagIds.isEmpty()) {
-                        bookMemoryCompleteTagRepository.deleteAllByBookMemoryCompleteId(bookMemoryCompleteId)
-                    } else {
-                        val oldTagIds = bookMemoryCompleteTagRepository.findAllByBookMemoryCompleteId(bookMemoryCompleteId)
-                            .map { b -> b.tagId }.toList()
-                        bookMemoryCompleteTagRepository.deleteAllByBookMemoryCompleteIdAndTagIdIn(
-                            bookMemoryCompleteId, oldTagIds.filter { tagId -> req.tagIds.contains(tagId) })
 
-                        req.tagIds.filterNot { tagId -> oldTagIds.contains(tagId) }.forEach { tagId ->
-                            bookMemoryCompleteTagRepository.save(BookMemoryCompleteTag(bookMemoryCompleteId = bookMemoryCompleteId, tagId = tagId))
-                        }
+        merge(bookMemoryComplete, req)
+    }
+
+    @Transactional
+    suspend fun merge(bookMemoryComplete: BookMemoryComplete, req: BookMemoryCompleteReq) =
+        bookMemoryComplete
+            .run {
+                memo = req.memo
+                rate = req.rate
+                bookMemoryCompleteRepository.save(this)}
+            .also {
+                val bookMemoryCompleteId = it.id
+                if(req.tagIds.isEmpty()) {
+                    bookMemoryCompleteTagRepository.deleteAllByBookMemoryCompleteId(bookMemoryCompleteId)
+                } else {
+                    val oldTagIds = bookMemoryCompleteTagRepository.findAllByBookMemoryCompleteId(bookMemoryCompleteId)
+                        .map { b -> b.tagId }.toList()
+
+                    bookMemoryCompleteTagRepository.deleteAllByBookMemoryCompleteIdAndTagIdIn(
+                        bookMemoryCompleteId, oldTagIds.filter { tagId -> !req.tagIds.contains(tagId) })
+
+                    req.tagIds.filter { tagId -> !oldTagIds.contains(tagId) }.forEach { tagId ->
+                        bookMemoryCompleteTagRepository.save(BookMemoryCompleteTag(bookMemoryCompleteId = bookMemoryCompleteId, tagId = tagId))
                     }
                 }
-    }
+            }
 
     suspend fun selectOne(userId: Long, bookMemoryCompleteId: Long) =
         bookMemoryCompleteRepository.findBookMemoryCompleteDetailByIdAndUserId(bookMemoryCompleteId, userId)
@@ -79,13 +82,10 @@ class BookMemoryCompleteService(
             ?: throw NotFoundException(DescriptionUtils.INVALID_BOOK_MEMORY_COMPLETE)
 
     @Transactional
-    suspend fun modify(userId: Long, bookMemoryCompleteId: Long, req: BookMemoryCompleteModification) {
+    suspend fun modify(userId: Long, bookMemoryCompleteId: Long, req: BookMemoryCompleteModification) =
         bookMemoryCompleteRepository.findByIdAndUserId(bookMemoryCompleteId, userId)
-            ?.apply {
-                memo = req.memo
-                bookMemoryCompleteRepository.save(this)
-            } ?: throw NotFoundException(DescriptionUtils.INVALID_BOOK_MEMORY_COMPLETE)
-    }
+            ?.also { merge(it, req) }
+            ?: throw NotFoundException(DescriptionUtils.INVALID_BOOK_MEMORY_COMPLETE)
 
     @Transactional
     suspend fun delete(userId: Long, bookMemoryCompleteId: Long) {
