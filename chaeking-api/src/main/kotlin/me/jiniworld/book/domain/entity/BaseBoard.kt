@@ -4,7 +4,7 @@ import org.springframework.data.annotation.Id
 
 abstract class BaseBoard(
     @Id
-    val id: Long = 0,
+    var id: Long = 0,   // TODO 구조 개선 확인 필요
 
     var title: String,
 

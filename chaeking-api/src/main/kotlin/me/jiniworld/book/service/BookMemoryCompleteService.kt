@@ -77,7 +77,7 @@ class BookMemoryCompleteService(
         bookMemoryCompleteRepository.findBookMemoryCompleteDetailByIdAndUserId(bookMemoryCompleteId, userId)
             ?.apply {
                 tagIds = bookMemoryCompleteTagRepository.findAllByBookMemoryCompleteId(this.id).map { b -> b.tagId }.toList()
-            }   // TODO tags로 변경해야함
+            }
             ?.let { DataResponse(data = it) }
             ?: throw NotFoundException(DescriptionUtils.INVALID_BOOK_MEMORY_COMPLETE)
 
