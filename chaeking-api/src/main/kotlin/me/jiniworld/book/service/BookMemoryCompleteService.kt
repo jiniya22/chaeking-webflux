@@ -1,5 +1,6 @@
 package me.jiniworld.book.service
 
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.toList
 import me.jiniworld.book.config.exception.NotFoundException
 import me.jiniworld.book.domain.entity.BookMemoryComplete
@@ -53,14 +54,27 @@ class BookMemoryCompleteService(
                     rate = req.rate
                     bookMemoryCompleteRepository.save(this)}
                 .also {
-                    req.tagIds.forEach { tagId ->
-                        bookMemoryCompleteTagRepository.save(BookMemoryCompleteTag(bookMemoryCompleteId = it.id, tagId = tagId))
+                    val bookMemoryCompleteId = it.id
+                    if(req.tagIds.isEmpty()) {
+                        bookMemoryCompleteTagRepository.deleteAllByBookMemoryCompleteId(bookMemoryCompleteId)
+                    } else {
+                        val oldTagIds = bookMemoryCompleteTagRepository.findAllByBookMemoryCompleteId(bookMemoryCompleteId)
+                            .map { b -> b.tagId }.toList()
+                        bookMemoryCompleteTagRepository.deleteAllByBookMemoryCompleteIdAndTagIdIn(
+                            bookMemoryCompleteId, oldTagIds.filter { tagId -> req.tagIds.contains(tagId) })
+
+                        req.tagIds.filterNot { tagId -> oldTagIds.contains(tagId) }.forEach { tagId ->
+                            bookMemoryCompleteTagRepository.save(BookMemoryCompleteTag(bookMemoryCompleteId = bookMemoryCompleteId, tagId = tagId))
+                        }
                     }
                 }
     }
 
     suspend fun selectOne(userId: Long, bookMemoryCompleteId: Long) =
         bookMemoryCompleteRepository.findBookMemoryCompleteDetailByIdAndUserId(bookMemoryCompleteId, userId)
+            ?.apply {
+                tagIds = bookMemoryCompleteTagRepository.findAllByBookMemoryCompleteId(this.id).map { b -> b.tagId }.toList()
+            }   // TODO tags로 변경해야함
             ?.let { DataResponse(data = it) }
             ?: throw NotFoundException(DescriptionUtils.INVALID_BOOK_MEMORY_COMPLETE)
 

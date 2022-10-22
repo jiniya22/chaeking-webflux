@@ -27,6 +27,7 @@ data class BookMemoryCompleteDetail(
     val imageUrl: String,
     val memo: String,
     val rate: Double,
+    var tagIds: List<Long>?,
 )
 
 //data class BookMemoryCompleteContent(
