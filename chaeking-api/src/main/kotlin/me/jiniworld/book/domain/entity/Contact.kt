@@ -9,6 +9,8 @@ class Contact(
     content: String,
 ): BaseBoard(id, title, content) {
     var userId: Long? = null
+    var answerTitle: String? = null
+    var answerContent: String? = null
 
     fun withId(id: Long): BaseBoard = Contact(id, title, content)
 

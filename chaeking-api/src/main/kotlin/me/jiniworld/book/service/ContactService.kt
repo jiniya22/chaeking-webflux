@@ -2,6 +2,7 @@ package me.jiniworld.book.service
 
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.toList
+import me.jiniworld.book.config.exception.NotFoundException
 import me.jiniworld.book.domain.entity.Contact
 import me.jiniworld.book.domain.repository.ContactRepository
 import me.jiniworld.book.model.BoardCreation
@@ -36,6 +37,7 @@ class ContactService(
     suspend fun selectOne(userId: Long, contactId: Long) =
         contactRepository.findByIdAndUserId(contactId, userId)
             ?.let { DataResponse(data = it) }
+            ?: throw NotFoundException("조회되는 문의가 없습니다.")
 
 
 }
