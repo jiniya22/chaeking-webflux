@@ -15,6 +15,7 @@ data class BookAnalysis(
 ) {
     fun addContent(name: String, amount: Int) {
         this.contents.add(BookAnalysisContent(name = name, amount = amount))
+        this.totalAmount += amount
     }
 }
 

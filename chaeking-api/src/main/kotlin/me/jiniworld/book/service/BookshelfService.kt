@@ -5,7 +5,7 @@ import me.jiniworld.book.config.exception.NotFoundException
 import me.jiniworld.book.domain.repository.BookMemoryCompleteRepository
 import me.jiniworld.book.domain.repository.UserRepository
 import me.jiniworld.book.model.BookAnalysis
-import me.jiniworld.book.model.BookMemoryCompleteSimple
+import me.jiniworld.book.model.Bookshelf
 import me.jiniworld.book.model.DataResponse
 import me.jiniworld.book.model.Home
 import me.jiniworld.book.util.AnalysisType
@@ -27,12 +27,12 @@ class BookshelfService(
     private val userRepository: UserRepository,
 ) {
 
-    suspend fun bookshelf(userId: Long, month: String, pageable: Pageable): DataResponse<List<BookMemoryCompleteSimple>> {
+    suspend fun bookshelf(userId: Long, month: String, pageable: Pageable): DataResponse<List<Bookshelf>> {
         val date = DateTimeUtils.getFirstDate(month)
         val time1 = DateTimeUtils.getFirstDateTime(date)
         val time2 = DateTimeUtils.getLastDateTime(date)
 
-        return bookMemoryCompleteRepository.findAllBookMemoryCompleteSimpleByUserIdAndCreatedAtBetween(userId, time1, time2, pageable.offset, pageable.pageSize)
+        return bookMemoryCompleteRepository.findAllBookshelfByUserIdAndCreatedAtBetween(userId, time1, time2, pageable.offset, pageable.pageSize)
             .toList()
             .let { DataResponse(data = it) }
     }

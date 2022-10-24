@@ -36,6 +36,15 @@ data class BookMemoryCompleteDetail(
     var tagIds: List<Long>?,
 )
 
+data class Bookshelf(
+    val id: Long,
+    val bookId: Long,
+    val bookName: String,
+    val imageUrl: String,
+    val memo: String,
+    val rate: Double,
+)
+
 //data class BookMemoryCompleteContent(
 //    val id: Long,
 //    val memo: String,
