@@ -4,8 +4,8 @@ import io.swagger.v3.oas.annotations.Operation
 import io.swagger.v3.oas.annotations.Parameter
 import io.swagger.v3.oas.annotations.tags.Tag
 import me.jiniworld.book.config.AuthUser
-import me.jiniworld.book.service.AnalysisType
 import me.jiniworld.book.service.BookshelfService
+import me.jiniworld.book.util.AnalysisType
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RequestParam
@@ -26,5 +26,5 @@ class HomeController(
     suspend fun home(
         authUser: AuthUser,
         @Parameter(description = "조회 기준") @RequestParam(required = false, defaultValue = "daily") type: AnalysisType,
-    ) = bookshelfService.bookAnalysis(authUser.userId, type)
+    ) = bookshelfService.home(authUser.userId, type)
 }

@@ -20,5 +20,5 @@ class BestSellerController(
     )
     @GetMapping("")
     suspend fun bestSellerTop10() =
-        bestSellerService.bestSeller()
+        bestSellerService.bestSeller(10)
 }
