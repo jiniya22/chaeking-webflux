@@ -7,7 +7,7 @@ import java.time.LocalDate
 data class BookSimple(
     val id: Long,
     val name: String,
-    var authorNames: String?,
+    var authors: String?,
     val publisher: String? = null,
     val imageUrl: String?,
 )

@@ -19,7 +19,7 @@ class BestSellerService(
     suspend fun findTopNBookBy(rowCount: Int) =
         bestSellerRepository.findTopNBookBy(rowCount)
             .map {
-                it.authorNames = bookService.findAllAuthorNameById(it.id).toList().joinToString(",")
+                it.authors = bookService.findAllAuthorNameById(it.id).toList().joinToString(",")
                 it
             }.toList()
 

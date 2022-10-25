@@ -11,6 +11,7 @@ data class BookSearchProperties(
 ) {
     data class Kakao(
         val apiKey: String,
+        val apiUrl: String,
     )
     data class Naver(
         val clientId: String,
