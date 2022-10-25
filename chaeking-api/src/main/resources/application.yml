@@ -6,6 +6,7 @@ spring:
   config:
     import:
       - chaeking.yml
+      - vault://secret/chaeking-local
 
   r2dbc:
     url: r2dbc:mariadb://localhost:3306/book
