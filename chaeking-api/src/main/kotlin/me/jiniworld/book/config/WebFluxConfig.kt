@@ -5,6 +5,7 @@ import org.springframework.context.annotation.Configuration
 import org.springframework.core.MethodParameter
 import org.springframework.stereotype.Component
 import org.springframework.web.reactive.BindingContext
+import org.springframework.web.reactive.config.CorsRegistry
 import org.springframework.web.reactive.config.ResourceHandlerRegistry
 import org.springframework.web.reactive.config.WebFluxConfigurer
 import org.springframework.web.reactive.result.method.HandlerMethodArgumentResolver
@@ -29,6 +30,13 @@ class WebFluxConfig(
         configurer.apply {
             addCustomResolver(authUserHandlerArgumentResolver)
         }
+    }
+
+    override fun addCorsMappings(registry: CorsRegistry) {
+        registry.addMapping("/**")
+            .allowedOrigins("*")
+            .allowedMethods("GET", "POST", "PUT", "DELETE")
+            .maxAge(3600)
     }
 }
 
