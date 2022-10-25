@@ -11,7 +11,15 @@ dependencies {
     implementation("org.springdoc:springdoc-openapi-kotlin:1.6.12")
     implementation("org.springdoc:springdoc-openapi-webflux-ui:1.6.12")
 
-    implementation("io.netty:netty-resolver-dns-native-macos:4.1.82.Final:osx-aarch_64")
+    implementation("org.springframework.cloud:spring-cloud-starter-vault-config")
+
+    implementation("io.netty:netty-resolver-dns-native-macos:4.1.84.Final:osx-aarch_64")
+}
+
+dependencyManagement {
+    imports {
+        mavenBom("org.springframework.cloud:spring-cloud-dependencies:2021.0.3")
+    }
 }
 
 tasks.bootJar {

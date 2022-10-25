@@ -32,6 +32,16 @@ spring:
     mapper:
       sort-properties-alphabetically: true
 
+  cloud:
+    vault:
+      host: vault.chaeking.com
+      scheme: https
+      port: 443
+      token: "hvs.CAESIO4DEGw52eKb-ke_DTYZ0JAwJaH6lGqpatVTwNwbN6K2Gh4KHGh2cy5aWjBjaTlBckpGRHY3SEJjVVE0cEhVTG4"
+      authentication: token
+      kv:
+        enabled: true
+        default-context: chaeking-local
 
 logging:
   exception-conversion-word: '%wEx'
