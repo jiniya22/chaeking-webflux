@@ -1,15 +1,17 @@
 package me.jiniworld.book.service
 
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.toList
 import me.jiniworld.book.client.KakaoWebClient
 import me.jiniworld.book.config.exception.NotFoundException
 import me.jiniworld.book.domain.entity.Author
-import me.jiniworld.book.domain.entity.Book
 import me.jiniworld.book.domain.entity.BookAndAuthor
 import me.jiniworld.book.domain.entity.Publisher
 import me.jiniworld.book.domain.repository.*
 import me.jiniworld.book.model.BookDetail
+import me.jiniworld.book.model.BookMemoryWishContent
 import me.jiniworld.book.model.BookSimple
 import me.jiniworld.book.model.DataResponse
 import me.jiniworld.book.model.client.KakaoBookSearch
@@ -30,11 +32,11 @@ class BookService(
 ) {
 
     suspend fun select(id: Long, userId: Long): DataResponse<BookDetail> =
-        bookRepository.findWithPublisherNameById(id)
+        bookRepository.findBookDetailById(id)
             ?.run {
-                bookMemoryWish = bookMemoryWishRepository.findByBookIdAndUserId(id, userId)
+                bookMemoryWish = bookMemoryWishRepository.findByBookIdAndUserId(id, userId)?.let { BookMemoryWishContent(it) }
                 authors = findAllAuthorNameById(id).toList()
-                DataResponse(data = BookDetail(this))
+                DataResponse(data = this)
             }
             ?: throw NotFoundException("조회되는 책이 없습니다.")
 
@@ -44,6 +46,7 @@ class BookService(
                 it.authors = findAllAuthorNameById(it.id).toList().joinToString(",")
                 it
             }
+            .flowOn(Dispatchers.IO)
             .toList()
             .let { DataResponse(data = it) }
 
@@ -61,7 +64,7 @@ class BookService(
                 if(book != null) {
                     bookIds.add(book.id)
                 } else {
-                    val book = kakaoBook.toBook().run {
+                    kakaoBook.toBook().run {
                         publisher?.let { publisherName ->
                             if (!publisherMap.containsKey(publisherName)) {
                                 val publisher = getPublisherByName(publisherName)
@@ -99,9 +102,9 @@ class BookService(
     }
 
     // TODO 추후 구조 개선 검토 필요
-    suspend fun selectBookByIsbn(isbn: String): Book? =
+    suspend fun selectBookByIsbn(isbn: String): BookDetail? =
         BasicUtils.getIsbn13ByIsbn(isbn)
-            ?.let{ bookRepository.findWithPublisherNameByIsbn13(it) }
+            ?.let{ bookRepository.findBookDetailByIsbn13(it) }
 
 
 }
