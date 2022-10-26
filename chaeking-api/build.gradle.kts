@@ -1,3 +1,13 @@
+val profile = if(project.hasProperty("profile")) project.property("profile").toString() else "local"
+
+sourceSets {
+    main {
+        resources {
+            srcDirs("src/main/resources/profile/$profile")
+        }
+    }
+}
+
 dependencies {
     implementation("org.springframework.boot:spring-boot-starter-webflux")
     implementation("io.projectreactor.kotlin:reactor-kotlin-extensions")

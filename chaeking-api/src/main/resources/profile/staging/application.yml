@@ -1,0 +1,72 @@
+spring:
+  application:
+    name: chaeking
+  profiles:
+    active: staging
+  config:
+    import:
+      - chaeking.yml
+      - vault://secret/chaeking-local
+
+  r2dbc:
+    url: r2dbc:mariadb://localhost:3306/book
+    username: test
+    password: test
+    pool:
+      max-size: 50
+      validation-query: SELECT 1
+      initial-size: 10
+      enabled: true
+
+  webflux:
+    static-path-pattern: /static/**
+    format:
+      date: yyyy-MM-dd
+      date-time: yyyy-MM-dd HH:mm:ss
+  jackson:
+    serialization:
+      indent-output: true
+      write-enums-using-to-string: true
+    deserialization:
+      fail-on-unknown-properties: false
+      read-enums-using-to-string: true
+    mapper:
+      sort-properties-alphabetically: true
+
+  cloud:
+    vault:
+      host: vault.chaeking.com
+      scheme: https
+      port: 443
+      token: "hvs.CAESIO4DEGw52eKb-ke_DTYZ0JAwJaH6lGqpatVTwNwbN6K2Gh4KHGh2cy5aWjBjaTlBckpGRHY3SEJjVVE0cEhVTG4"
+      authentication: token
+      kv:
+        enabled: true
+        default-context: chaeking-local
+
+logging:
+  exception-conversion-word: '%wEx'
+  pattern:
+    console: '%d{yyyy-MM-dd HH:mm:ss.SSS} %clr(${LOG_LEVEL_PATTERN:%-5p}){green} %clr([%22thread]){magenta} %clr(%-40.40logger{39}){cyan} %clr(: %m%n${LOG_EXCEPTION_CONVERSION_WORD:-%wEx}){faint}'
+  level:
+    web: DEBUG
+    org.springframework.r2dbc: DEBUG
+
+server:
+  port: 8080
+
+springdoc:
+  api-docs:
+    path: /api-docs
+  default-consumes-media-type: application/json
+  default-produces-media-type: application/json
+  swagger-ui:
+    operations-sorter: alpha
+    tags-sorter: alpha
+    disable-swagger-default-url: true
+    doc-expansion: none
+    syntax-highlight:
+      theme: nord
+    path: /
+  paths-to-match:
+    - /v1/**

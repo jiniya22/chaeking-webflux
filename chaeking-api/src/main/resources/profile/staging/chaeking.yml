@@ -1,0 +1,7 @@
+chaeking:
+  version: 1.0.1
+  url: https://book.applebox.xyz
+
+book-search:
+  kakao:
+    api-url: https://dapi.kakao.com
