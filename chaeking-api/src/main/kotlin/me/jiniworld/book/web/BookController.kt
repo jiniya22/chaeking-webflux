@@ -53,10 +53,9 @@ class BookController(
         @RequestParam(value = "page", required = false, defaultValue = "0") @Min(0) @Max(100) page: Int,
         @RequestParam(value = "size", required = false, defaultValue = "10") @Min(1) @Max(50) size: Int,
     ): DataResponse<List<BookSimple>> {
-
         val bookId: List<Long> = bookService.searchKakaoBook(KakaoBookSearch(query = query, target = target?.name ?: "",
             sort = sort.name, page = page + 1, size = size))
-        return DataResponse(data = ArrayList()) // TODO
+        return bookService.selectAll(bookId)
     }
 
     @Operation(summary = "책 상세조회", description = "Authorization 헤더 설정시, 사용자가 설정한 이미 읽은 책, 읽고 싶은 책 정보를 확인할 수 있습니다.")

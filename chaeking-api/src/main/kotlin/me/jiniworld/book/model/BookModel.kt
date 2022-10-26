@@ -1,16 +1,29 @@
 package me.jiniworld.book.model
 
 import me.jiniworld.book.domain.entity.Book
-import me.jiniworld.book.domain.entity.BookMemoryWish
 import java.time.LocalDate
 
 data class BookSimple(
     val id: Long,
     val name: String,
-    var authors: String?,
+    var authors: String? = null,
     val publisher: String? = null,
     val imageUrl: String?,
-)
+) {
+    companion object {
+        operator fun invoke(book: Book) {
+            with(book) {
+                BookSimple(
+                    id = id!!,
+                    name = name,
+                    authors = authors?.joinToString(","),
+                    publisher = publisher,
+                    imageUrl = imageUrl,
+                )
+            }
+        }
+    }
+}
 
 data class BookDetail(
     val id: Long,
@@ -33,7 +46,7 @@ data class BookDetail(
                     price = price,
                     publisher = publisher,
                     publicationDate = publicationDate,
-                    isbn = isbn10,
+                    isbn = isbn13,
                     imageUrl = imageUrl,
                     detailInfo = detailInfo,
                     authors = authors,

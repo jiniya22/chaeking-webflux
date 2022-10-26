@@ -1,5 +1,10 @@
 package me.jiniworld.book.model.client
 
+import me.jiniworld.book.domain.entity.Book
+import me.jiniworld.book.util.BasicUtils
+import me.jiniworld.book.util.DateTimeUtils
+import java.time.LocalDate
+
 data class KakaoBookSearch(
     val query: String,
     val target: String,
@@ -18,7 +23,7 @@ data class KakaoBookRes(
         val authors: List<String>,
         val price: Int,
         val publisher: String,
-//        val datetime: String,
+        val datetime: String?,
         val isbn: String,
         val url: String,
         val contents: String?,
@@ -30,6 +35,19 @@ data class KakaoBookRes(
         val total_count: Int,
     )
 }
+
+fun KakaoBookRes.Document.toBook() = Book(
+    name = title,
+    price = price,
+    publisher = publisher,
+    authors = authors,
+    publicationDate = datetime?.let {
+        LocalDate.parse(it.replace(Regex("\\D"), "").substring(0,8), DateTimeUtils.FORMATTER_DATE_SIMPLE) },
+    isbn13 = BasicUtils.getIsbn13ByIsbn(isbn) ?: "",
+    imageUrl = thumbnail,
+    link = url,
+    detailInfo = contents,
+)
 
 enum class KakaoBookTarget {
     title, isbn, publisher, person;
