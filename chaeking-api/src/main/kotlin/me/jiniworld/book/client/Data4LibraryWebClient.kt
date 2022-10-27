@@ -14,8 +14,8 @@ class Data4LibraryWebClient(
 ) {
 
     suspend fun searchBook(region: String): Data4LibraryLibrary.Response =
-        WebClient.create().get()
-            .uri(DefaultUriBuilderFactory("https://data4library.kr/api")
+        WebClient.create("https://data4library.kr/api").get()
+            .uri(DefaultUriBuilderFactory()
                 .uriString("/libSrch")
                 .queryParam("authKey", chaekingProperties.data4library.authKey)
                 .queryParam("format", "json")
