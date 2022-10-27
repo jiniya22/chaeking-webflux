@@ -36,18 +36,20 @@ object DateTimeUtils {
     fun getLastDateTime(date: LocalDate): LocalDateTime =
         LocalDateTime.of(date.with(TemporalAdjusters.lastDayOfMonth()), LOCALTIME_END)
 
-    fun getFirstDateTime(date: LocalDate, type: AnalysisType) =
+    fun getFirstDateTime(date: LocalDate, type: AnalysisType): LocalDateTime =
         when (type) {
             AnalysisType.weekly -> LocalDateTime.of(date.minusDays((date[ChronoField.DAY_OF_WEEK] - 1).toLong()).minusWeeks(6), LOCALTIME_START)
             AnalysisType.monthly -> date.minusDays((date[ChronoField.DAY_OF_MONTH] - 1).toLong()).minusMonths(6).atStartOfDay()
             else -> LocalDateTime.of(date.minusDays((date[ChronoField.DAY_OF_WEEK] - 1).toLong()), LOCALTIME_START)
         }
 
-    fun getLastDateTime(date: LocalDate, type: AnalysisType) =
+    fun getLastDateTime(date: LocalDate, type: AnalysisType): LocalDateTime =
         when (type) {
             AnalysisType.monthly -> LocalDateTime.of(date.minusDays(date[ChronoField.DAY_OF_MONTH].toLong()).plusMonths(1), LOCALTIME_END)
             else -> LocalDateTime.of(date.plusDays((7 - date[ChronoField.DAY_OF_WEEK]).toLong()), LOCALTIME_END)
         }
+
+    fun toString(date: LocalDate) = date.format(FORMATTER_DATE)
 }
 
 

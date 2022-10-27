@@ -1,6 +1,7 @@
 package me.jiniworld.book.client
 
 import kotlinx.coroutines.reactor.awaitSingle
+import me.jiniworld.book.model.data4library.Data4LibraryHotTrend
 import me.jiniworld.book.model.data4library.Data4LibraryLibrary
 import me.jiniworld.book.model.property.ChaekingProperties
 import org.springframework.stereotype.Component
@@ -32,6 +33,21 @@ class Data4LibraryWebClient(
             }
             .retrieve()
             .bodyToMono<Data4LibraryLibrary>()
+            .map { it.response }
+            .awaitSingle()
+
+    suspend fun hotTrend(req: Map<String, String>): Data4LibraryHotTrend.Response =
+        webClient.get()
+            .uri{
+                it.pathSegment("/hotTrend")
+                    .queryParams(LinkedMultiValueMap<String, String>().apply {
+                        setAll(baseQueryParams)
+                        setAll(req)
+                    })
+                    .build()
+            }
+            .retrieve()
+            .bodyToMono<Data4LibraryHotTrend>()
             .map { it.response }
             .awaitSingle()
 }
