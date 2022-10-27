@@ -70,3 +70,4 @@ springdoc:
     path: /
   paths-to-match:
     - /v1/**
+    - /temp/**
