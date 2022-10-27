@@ -12,7 +12,11 @@ class LibraryService(
 ) {
 
     suspend fun selectLibraries(region: String): Data4LibraryLibrary.Response {
-        val res = data4LibraryWebClient.searchBook(region)
-        return res
+        val req = mapOf(
+            "region" to region,
+            "pageNo" to "1",
+            "pageSize" to "400"
+        )
+        return data4LibraryWebClient.searchLibrary(req)
     }
 }
