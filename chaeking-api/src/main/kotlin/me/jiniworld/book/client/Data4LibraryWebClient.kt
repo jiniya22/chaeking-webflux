@@ -1,9 +1,12 @@
 package me.jiniworld.book.client
 
 import kotlinx.coroutines.reactor.awaitSingle
+import me.jiniworld.book.model.data4library.Data4LibraryBookExist
+import me.jiniworld.book.model.data4library.Data4LibraryBookExistReq
 import me.jiniworld.book.model.data4library.Data4LibraryHotTrend
 import me.jiniworld.book.model.data4library.Data4LibraryLibrary
 import me.jiniworld.book.model.property.ChaekingProperties
+import me.jiniworld.book.util.BasicUtils
 import org.springframework.stereotype.Component
 import org.springframework.util.LinkedMultiValueMap
 import org.springframework.web.reactive.function.client.WebClient
@@ -48,6 +51,21 @@ class Data4LibraryWebClient(
             }
             .retrieve()
             .bodyToMono<Data4LibraryHotTrend>()
+            .map { it.response }
+            .awaitSingle()
+
+    suspend fun bookExist(req: Data4LibraryBookExistReq): Data4LibraryBookExist.Response =
+        webClient.get()
+            .uri{
+                it.pathSegment("/bookExist")
+                    .queryParams(LinkedMultiValueMap<String, String>().apply {
+                        setAll(baseQueryParams)
+                        addAll(BasicUtils.convertObjectToMultiValueMap(req))
+                    })
+                    .build()
+            }
+            .retrieve()
+            .bodyToMono<Data4LibraryBookExist>()
             .map { it.response }
             .awaitSingle()
 }
