@@ -4,6 +4,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.toList
+import me.jiniworld.book.client.Data4LibraryWebClient
 import me.jiniworld.book.client.KakaoWebClient
 import me.jiniworld.book.config.exception.NotFoundException
 import me.jiniworld.book.domain.entity.Author
@@ -16,7 +17,9 @@ import me.jiniworld.book.model.BookSimple
 import me.jiniworld.book.model.DataResponse
 import me.jiniworld.book.model.client.KakaoBookSearch
 import me.jiniworld.book.model.client.toBook
+import me.jiniworld.book.model.data4library.Data4LibraryBookExistReq
 import me.jiniworld.book.util.BasicUtils
+import org.bouncycastle.asn1.x500.style.RFC4519Style.l
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 
@@ -27,14 +30,25 @@ class BookService(
     private val bookRepository: BookRepository,
     private val bookAndAuthorRepository: BookAndAuthorRepository,
     private val bookMemoryWishRepository: BookMemoryWishRepository,
+    private val data4LibraryWebClient: Data4LibraryWebClient,
     private val kakaoWebClient: KakaoWebClient,
     private val publisherRepository: PublisherRepository,
+    private val libraryRepository: LibraryRepository,
 ) {
 
-    suspend fun select(id: Long, userId: Long): DataResponse<BookDetail> =
+    suspend fun select(id: Long, userId: Long?): DataResponse<BookDetail> =
         bookRepository.findBookDetailById(id)
             ?.run {
-                bookMemoryWish = bookMemoryWishRepository.findByBookIdAndUserId(id, userId)?.let { BookMemoryWishContent(it) }
+                userId?.also { uId ->
+                    libraryRepository.findByUserId(uId)?.let { library ->
+                        data4LibraryWebClient.bookExist(Data4LibraryBookExistReq(isbn, library.code)).also {
+                            libraryInfo = BookDetail.LibraryInfo(
+                                id = library.id, name = library.name, code = library.code,
+                                hasBook = it.hasBook, loanAvailable = it.loanAvailable)
+                        }
+                    }
+                    bookMemoryWish = bookMemoryWishRepository.findByBookIdAndUserId(id, uId)?.let { BookMemoryWishContent(it) }
+                }
                 authors = findAllAuthorNameById(id).toList()
                 DataResponse(data = this)
             }

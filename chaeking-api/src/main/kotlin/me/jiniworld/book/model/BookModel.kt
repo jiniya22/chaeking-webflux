@@ -36,4 +36,13 @@ data class BookDetail(
     var detailInfo: String?,
     var authors: List<String>?,
     var bookMemoryWish: BookMemoryWishContent?,
-)
+    var libraryInfo: LibraryInfo?,
+) {
+    data class LibraryInfo(
+        val id: Long,
+        val name: String,
+        val code: String,
+        val hasBook: String,
+        val loanAvailable: String,
+    )
+}

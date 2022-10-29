@@ -54,7 +54,7 @@ class Data4LibraryWebClient(
             .map { it.response }
             .awaitSingle()
 
-    suspend fun bookExist(req: Data4LibraryBookExistReq): Data4LibraryBookExist.Response =
+    suspend fun bookExist(req: Data4LibraryBookExistReq): Data4LibraryBookExist.Response.Result =
         webClient.get()
             .uri{
                 it.pathSegment("/bookExist")
@@ -66,6 +66,6 @@ class Data4LibraryWebClient(
             }
             .retrieve()
             .bodyToMono<Data4LibraryBookExist>()
-            .map { it.response }
+            .map { it.response.result }
             .awaitSingle()
 }

@@ -22,6 +22,8 @@ data class User(
 
     var nightPush: Boolean = false,
 
+    var libraryId: Long?,
+
 ): BaseEntity()
 
 enum class Sex {
