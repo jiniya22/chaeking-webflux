@@ -19,7 +19,6 @@ import me.jiniworld.book.model.client.KakaoBookSearch
 import me.jiniworld.book.model.client.toBook
 import me.jiniworld.book.model.data4library.Data4LibraryBookExistReq
 import me.jiniworld.book.util.BasicUtils
-import org.bouncycastle.asn1.x500.style.RFC4519Style.l
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 
