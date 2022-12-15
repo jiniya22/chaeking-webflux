@@ -65,9 +65,10 @@ class BookMemoryCompleteService(
                         .map { b -> b.tagId }.toList()
 
                     bookMemoryCompleteTagRepository.deleteAllByBookMemoryCompleteIdAndTagIdIn(
-                        bookMemoryCompleteId, oldTagIds.filter { tagId -> !req.tagIds.contains(tagId) })
+                        bookMemoryCompleteId, oldTagIds.parallelStream().filter { tagId -> !req.tagIds.contains(tagId) }.toList())
 
-                    req.tagIds.filter { tagId -> !oldTagIds.contains(tagId) }.forEach { tagId ->
+                    req.tagIds.parallelStream()
+                        .filter { tagId -> !oldTagIds.contains(tagId) }.toList().forEach { tagId ->
                         bookMemoryCompleteTagRepository.save(BookMemoryCompleteTag(bookMemoryCompleteId = bookMemoryCompleteId, tagId = tagId))
                     }
                 }
