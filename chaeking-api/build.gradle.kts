@@ -17,14 +17,14 @@ dependencies {
     compileOnly("org.springframework.boot:spring-boot-configuration-processor")
 
     implementation("org.springframework.boot:spring-boot-starter-data-r2dbc")
-    runtimeOnly("org.mariadb:r2dbc-mariadb:1.1.2")
+    runtimeOnly("org.mariadb:r2dbc-mariadb:1.1.3")
 
-    implementation("org.springdoc:springdoc-openapi-kotlin:1.6.13")
-    implementation("org.springdoc:springdoc-openapi-webflux-ui:1.6.13")
+    implementation("org.springdoc:springdoc-openapi-kotlin:1.6.14")
+    implementation("org.springdoc:springdoc-openapi-webflux-ui:1.6.14")
 
     implementation("org.springframework.cloud:spring-cloud-starter-vault-config")
 
-    implementation("io.netty:netty-resolver-dns-native-macos:4.1.85.Final:osx-aarch_64")
+    implementation("io.netty:netty-resolver-dns-native-macos:4.1.86.Final:osx-aarch_64")
 }
 
 dependencyManagement {
