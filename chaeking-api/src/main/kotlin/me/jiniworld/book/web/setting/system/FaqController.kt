@@ -2,6 +2,8 @@ package me.jiniworld.book.web.setting.system
 
 import io.swagger.v3.oas.annotations.Operation
 import io.swagger.v3.oas.annotations.tags.Tag
+import me.jiniworld.book.model.BoardDetail
+import me.jiniworld.book.model.DataResponse
 import me.jiniworld.book.service.FaqService
 import org.springframework.data.domain.PageRequest
 import org.springframework.data.domain.Sort
@@ -20,10 +22,12 @@ class FaqController(
         @RequestParam(required = false, defaultValue = "0") page: Int,
         @RequestParam(required = false, defaultValue = "10") size: Int,
     ) = faqService.faqs(PageRequest.of(page, size, Sort.by(Sort.Order.desc("id"))))
+        .run { DataResponse(data = this) }
 
     @Operation(summary = "FAQ(자주묻는 질문) 상세조회")
     @GetMapping("/{faq_id}")
     suspend fun faq(
         @PathVariable("faq_id") faqId: Long
     ) = faqService.faq(faqId)
+        .run { DataResponse(data = BoardDetail(this)) }
 }

@@ -20,11 +20,10 @@ class FaqService(
         faqRepository.findAllBy(pageable)
             .map { BoardSimple(it) }
             .toList()
-            .let { DataResponse(data = it) }
 
 
     suspend fun faq(faqId: Long) =
-        faqRepository.findById(faqId)?.run { DataResponse(data = BoardDetail(this)) }
+        faqRepository.findById(faqId)
             ?: throw NotFoundException("조회되는 FAQ가 없습니다.")
 
 }

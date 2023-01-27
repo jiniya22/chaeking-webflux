@@ -21,7 +21,6 @@ class ContactService(
         contactRepository.findAllByUserId(userId, pageable)
             .map { BoardSimple(it) }
             .toList()
-            .let { DataResponse(data = it) }
 
     @Transactional
     suspend fun insert(userId: Long, req: BoardCreation) {
@@ -36,7 +35,6 @@ class ContactService(
 
     suspend fun selectOne(userId: Long, contactId: Long) =
         contactRepository.findByIdAndUserId(contactId, userId)
-            ?.let { DataResponse(data = it) }
             ?: throw NotFoundException("조회되는 문의가 없습니다.")
 
 

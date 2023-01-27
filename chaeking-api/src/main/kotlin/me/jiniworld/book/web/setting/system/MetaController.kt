@@ -3,6 +3,7 @@ package me.jiniworld.book.web.setting.system
 import io.swagger.v3.oas.annotations.Operation
 import io.swagger.v3.oas.annotations.tags.Tag
 import me.jiniworld.book.domain.entity.MetaType
+import me.jiniworld.book.model.DataResponse
 import me.jiniworld.book.service.MetaService
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.RequestMapping
@@ -21,4 +22,5 @@ class MetaController(
     suspend fun meta(
         @RequestParam(value = "메타 타입", required = false, defaultValue = "AOS_APP_VERSION") type: MetaType
     ) = metaService.meta(type)
+        .run { DataResponse(data = this.content) }
 }

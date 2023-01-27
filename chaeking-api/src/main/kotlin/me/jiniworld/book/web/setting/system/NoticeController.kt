@@ -2,6 +2,8 @@ package me.jiniworld.book.web.setting.system
 
 import io.swagger.v3.oas.annotations.Operation
 import io.swagger.v3.oas.annotations.tags.Tag
+import me.jiniworld.book.model.BoardDetail
+import me.jiniworld.book.model.DataResponse
 import me.jiniworld.book.service.NoticeService
 import org.springframework.data.domain.PageRequest
 import org.springframework.data.domain.Sort
@@ -20,11 +22,12 @@ class NoticeController(
         @RequestParam(required = false, defaultValue = "0") page: Int,
         @RequestParam(required = false, defaultValue = "10") size: Int,
     ) = noticeService.notices(PageRequest.of(page, size, Sort.by(Sort.Order.desc("id"))))
+        .run { DataResponse(data = this) }
 
     @Operation(summary = "공지사항 상세조회")
     @GetMapping("/{notice_id}")
     suspend fun notice(
         @PathVariable("notice_id") noticeId: Long
     ) = noticeService.notice(noticeId)
-
+        .run { DataResponse(data = BoardDetail(this)) }
 }

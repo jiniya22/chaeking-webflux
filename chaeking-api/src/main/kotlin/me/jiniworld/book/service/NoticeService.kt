@@ -19,10 +19,9 @@ class NoticeService(
         noticeRepository.findAllBy(pageable)
             .map { BoardSimple(it) }
             .toList()
-            .let { DataResponse(data = it) }
 
     suspend fun notice(id: Long) =
-        noticeRepository.findById(id)?.run { DataResponse(data = BoardDetail(this)) }
+        noticeRepository.findById(id)
             ?: throw NotFoundException("조회되는 공지사항이 없습니다.")
 
 }

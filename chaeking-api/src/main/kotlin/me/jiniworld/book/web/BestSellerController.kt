@@ -2,6 +2,7 @@ package me.jiniworld.book.web
 
 import io.swagger.v3.oas.annotations.Operation
 import io.swagger.v3.oas.annotations.tags.Tag
+import me.jiniworld.book.model.DataResponse
 import me.jiniworld.book.service.BestSellerService
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.RequestMapping
@@ -20,5 +21,9 @@ class BestSellerController(
     )
     @GetMapping("")
     suspend fun bestSellerTop10() =
-        bestSellerService.bestSeller(10)
+        bestSellerService.findTopNBookBy(10)
+            .run { DataResponse(data = this) }
+
+    @GetMapping("/test")
+    fun test() = "test!"
 }

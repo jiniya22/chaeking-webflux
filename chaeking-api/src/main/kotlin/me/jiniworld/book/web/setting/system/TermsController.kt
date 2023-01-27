@@ -2,6 +2,7 @@ package me.jiniworld.book.web.setting.system
 
 import io.swagger.v3.oas.annotations.Operation
 import io.swagger.v3.oas.annotations.tags.Tag
+import me.jiniworld.book.model.DataResponse
 import me.jiniworld.book.service.TermsService
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.RequestMapping
@@ -18,4 +19,5 @@ class TermsController(
     @GetMapping("")
     suspend fun terms() =
         termsService.terms()
+            .run { DataResponse(data = this) }
 }

@@ -6,6 +6,7 @@ import io.swagger.v3.oas.annotations.tags.Tag
 import me.jiniworld.book.config.AuthUser
 import me.jiniworld.book.model.BaseResponse
 import me.jiniworld.book.model.BoardCreation
+import me.jiniworld.book.model.DataResponse
 import me.jiniworld.book.service.ContactService
 import org.springframework.data.domain.PageRequest
 import org.springframework.data.domain.Sort
@@ -25,6 +26,7 @@ class ContactController(
         @RequestParam(required = false, defaultValue = "0") page: Int,
         @RequestParam(required = false, defaultValue = "10") size: Int,
     ) = contactService.selectAll(authUser.userId, PageRequest.of(page, size, Sort.by(Sort.Order.desc("id"))))
+        .run { DataResponse(data = this) }
 
     @Operation(summary = "문의 등록 (= 문의하기)")
     @PostMapping("")
@@ -42,4 +44,5 @@ class ContactController(
         authUser: AuthUser,
         @Parameter(description = "문의 id") @PathVariable(name = "contact_id") contactId: Long,
     ) = contactService.selectOne(authUser.userId, contactId)
+        .run { DataResponse(data = this) }
 }
