@@ -23,6 +23,7 @@ class WebConfig {
             .propertyNamingStrategy(PropertyNamingStrategies.SNAKE_CASE)
             .enable(SerializationFeature.INDENT_OUTPUT)
             .enable(MapperFeature.SORT_PROPERTIES_ALPHABETICALLY)
+            .enable(DeserializationFeature.ACCEPT_EMPTY_ARRAY_AS_NULL_OBJECT)
             .enable(SerializationFeature.WRITE_ENUMS_USING_TO_STRING)
             .enable(DeserializationFeature.READ_ENUMS_USING_TO_STRING)
             .disable(MapperFeature.ACCEPT_CASE_INSENSITIVE_PROPERTIES)
