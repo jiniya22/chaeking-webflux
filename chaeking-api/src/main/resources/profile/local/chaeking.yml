@@ -2,6 +2,9 @@ chaeking:
   version: 1.0.1
   url: http://localhost:${server.port}
 
+  data4library:
+    url: http://data4library.kr/api
+
 book-search:
   kakao:
     api-url: https://dapi.kakao.com

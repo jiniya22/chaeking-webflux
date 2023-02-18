@@ -10,6 +10,7 @@ data class ChaekingProperties(
     val data4library: Data4library,
 ) {
     data class Data4library(
+        val url: String,
         val authKey: String,
     )
 }

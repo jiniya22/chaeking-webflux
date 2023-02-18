@@ -14,11 +14,9 @@ import org.springframework.web.reactive.function.client.bodyToMono
 
 @Component
 class Data4LibraryWebClient(
-    private val chaekingProperties: ChaekingProperties,
+    chaekingProperties: ChaekingProperties,
 ) {
-    companion object {
-        private val webClient = WebClient.create("https://data4library.kr/api")
-    }
+    private val webClient = WebClient.create(chaekingProperties.data4library.url)
     private val baseQueryParams = mapOf(
         "authKey" to chaekingProperties.data4library.authKey,
         "format" to "json"

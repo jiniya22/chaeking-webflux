@@ -2,6 +2,9 @@ chaeking:
   version: 1.0.1
   url: https://book.applebox.xyz
 
+  data4library:
+    url: https://data4library.kr/api
+
 book-search:
   kakao:
     api-url: https://dapi.kakao.com

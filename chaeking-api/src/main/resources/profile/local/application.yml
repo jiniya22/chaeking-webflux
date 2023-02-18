@@ -23,6 +23,12 @@ spring:
     format:
       date: yyyy-MM-dd
       date-time: yyyy-MM-dd HH:mm:ss
+
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
+
   jackson:
     serialization:
       indent-output: true
@@ -49,7 +55,7 @@ logging:
   pattern:
     console: '%d{yyyy-MM-dd HH:mm:ss.SSS} %clr(${LOG_LEVEL_PATTERN:%-5p}){green} %clr([%22thread]){magenta} %clr(%-40.40logger{39}){cyan} %clr(: %m%n${LOG_EXCEPTION_CONVERSION_WORD:-%wEx}){faint}'
   level:
-    web: DEBUG
+    me.jiniworld.book: DEBUG
     org.springframework.r2dbc: DEBUG
 
 server:
